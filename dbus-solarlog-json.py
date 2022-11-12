@@ -132,19 +132,12 @@ class DbusSolarlogJsonService:
        config = self._getConfig()
        
        #Solarlog Device PAC Mapping 
+       #changed to work with single three phase inverter
        pac1 = int(meter_data[0]['782']['0'])
-       pac2 = int(meter_data[0]['782']['1'])
-       pac3 = int(meter_data[0]['782']['2'])
-       pac = pac1+pac2+pac3
-       #print(meter_data[1]['801']['170'])
-       
-       # Inverter No.3 has 3phase output
-       lac3 = pac3 / 3
-       # Inverter 1 and 2 has 1p on L1
-       l1p = pac1 + pac2 + lac3
-
-       l2p = lac3
-       l3p = lac3
+       pac = pac1 / 3
+       l1p = pac
+       l2p = pac
+       l3p = pac
       
        total = meter_data[1]['801']['170']['109']
        #send data to DBus
@@ -160,7 +153,7 @@ class DbusSolarlogJsonService:
        self._dbusservice['/Ac/L1/Voltage'] = voltage
        self._dbusservice['/Ac/L2/Voltage'] = voltage
        self._dbusservice['/Ac/L3/Voltage'] = voltage
-       self._dbusservice['/Ac/Power'] = pac1+pac2+pac3
+       self._dbusservice['/Ac/Power'] = pac1
        self._dbusservice['/Ac/L1/Power'] = l1p
        self._dbusservice['/Ac/L2/Power'] = l2p
        self._dbusservice['/Ac/L3/Power'] = l3p
