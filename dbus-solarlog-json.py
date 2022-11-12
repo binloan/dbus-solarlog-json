@@ -7,6 +7,7 @@ import logging
 import sys
 import os
 import sys
+import csv
 if sys.version_info.major == 2:
     import gobject
 else:
@@ -174,7 +175,6 @@ class DbusSolarlogJsonService:
                    l1=(row[0])
                    l2=(row[1])
                    l3=(row[2])
-
 
        l1c = float(l1) + float(l1p) * 5 * 1/3600 / 1000
        l2c = float(l2) + float(l2p) * 5 * 1/3600 / 1000
